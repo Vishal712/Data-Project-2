@@ -9,8 +9,10 @@
 		<title>Untitled</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="static/assets/css/main.css" />
+		<link rel="stylesheet" href="static/assets/css/noscript.css" />
+		<link  href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.css">
+		<link rel="shortcut icon" href="">
 	</head>
 	<body class="is-preload">
 
@@ -20,7 +22,7 @@
 				<!-- Header -->
 				<!-- Note: The "styleN" class below should match that of the banner element. -->
 					<header id="header" class="alt style2">
-						<a href="index.html" class="logo"><strong>Forty</strong> <span>by Pixelarity</span></a>
+						<a href="/" class="logo"><strong>NCAA to NBA</strong> <span>Comparing Statistics & Profiles</span></a>
 						<nav>
 							<a href="#menu">Menu</a>
 						</nav>
@@ -45,14 +47,13 @@
 					<section id="banner" class="style2">
 						<div class="inner">
 							<span class="image">
-								<img src="images/pic07.jpg" alt="" />
+								<img src="static/images/pic07.jpg" alt="" />
 							</span>
 							<header class="major">
-								<h1>Landing</h1>
+								<h1>Data</h1>
 							</header>
 							<div class="content">
-								<p>Lorem ipsum dolor sit amet nullam consequat<br />
-								sed veroeros. tempus adipiscing nulla.</p>
+								<p>View individual player statistics.</p>
 							</div>
 						</div>
 					</section>
@@ -63,10 +64,32 @@
 						<!-- One -->
 							<section id="one">
 								<div class="inner">
+									<h3>Choose Player</h3>
+									<form>
+									<input id = "playerchosen" class="awesomplete" style="color:black" placeholder="Kevin Durant" list="player_dropdown" /> 
+									<button id="filter-btn" type="button" class="btn btn-default">Get Player Data</button>
+									</form>
+									<datalist id= "player_dropdown"></datalist>
 									<header class="major">
-										<h2>Sed amet aliquam</h2>
+										<h2 id = "selectedplayername">
+										</h2>	
 									</header>
-									<p>Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna. Maecenas massa vel lacinia pellentesque lorem ipsum dolor. Nullam et orci eu lorem consequat tincidunt. Vivamus et sagittis libero. Nullam et orci eu lorem consequat tincidunt vivamus et sagittis magna sed nunc rhoncus condimentum sem. In efficitur ligula tate urna.</p>
+									<table>
+										<thead>
+										  <tr>
+											<th class="table-head">Category</th>
+											<th class="table-head">College Statistic</th>
+											<th class="table-head">NBA Statistic</th>
+										  </tr>
+										</thead>
+										<tbody>
+											<tr>
+											<td>PPG</td>
+											<td>12.4</td>
+											<td>18.5</td>
+											</tr>
+										</tbody>
+									  </table>
 								</div>
 							</section>
 
@@ -74,7 +97,7 @@
 							<section id="two" class="spotlights">
 								<section>
 									<a href="generic.html" class="image">
-										<img src="images/pic08.jpg" alt="" data-position="center center" />
+										<img src="static/images/pic08.jpg" alt="" data-position="center center" />
 									</a>
 									<div class="content">
 										<div class="inner">
@@ -90,7 +113,7 @@
 								</section>
 								<section>
 									<a href="generic.html" class="image">
-										<img src="images/pic09.jpg" alt="" data-position="top center" />
+										<img src="static/images/pic09.jpg" alt="" data-position="top center" />
 									</a>
 									<div class="content">
 										<div class="inner">
@@ -106,7 +129,7 @@
 								</section>
 								<section>
 									<a href="generic.html" class="image">
-										<img src="images/pic10.jpg" alt="" data-position="25% 25%" />
+										<img src="static/images/pic10.jpg" alt="" data-position="25% 25%" />
 									</a>
 									<div class="content">
 										<div class="inner">
@@ -209,13 +232,18 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+			<script src="https://d3js.org/d3.v5.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+			<script src ="static/assets/js/jsdatapage.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.1.5/awesomplete.js"></script>
+			<script src="static/assets/js/jquery.min.js"></script>
+			<script src="static/assets/js/jquery.scrolly.min.js"></script>
+			<script src="static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="static/assets/js/browser.min.js"></script>
+			<script src="static/assets/js/breakpoints.min.js"></script>
+			<script src="static/assets/js/util.js"></script>
+			<script src="static/assets/js/main.js"></script>
+			
 
 	</body>
 </html>
