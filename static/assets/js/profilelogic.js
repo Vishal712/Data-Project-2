@@ -1,11 +1,11 @@
-var svgWidth = 1050;
+var svgWidth = 1410;
 var svgHeight = 700;
 
 var margin = {
   top: 20,
   right: 40,
   bottom: 80,
-  left: 100
+  left: 500
 };
 
 var width = svgWidth - margin.left - margin.right;
@@ -118,7 +118,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, circleLabels) {
     .offset([80, -60])
     .attr("class", "d3-tip")
     .html(function(d) {
-      return (`${d.name}<br>${labelx} ${d[chosenXAxis]}<br> ${labely} ${d[chosenYAxis]}`);
+      return (`${d.Name}<br>${labelx} ${d[chosenXAxis]}<br> ${labely} ${d[chosenYAxis]}`);
     });
 
   circlesGroup.call(toolTip);
@@ -170,10 +170,12 @@ d3.csv("static/assets/data/NBAData.csv", function(nbaData) {
   var xAxis = chartGroup.append("g")
   .classed("x-axis", true)
   .attr("transform", `translate(0, ${height})`)
+  .attr("class", "axisWhite")
   .call(bottomAxis.ticks(20));
 
   // append y axis
   var yAxis = chartGroup.append("g")
+  .attr("class", "axisWhite")
   .call(leftAxis);
   
   // append initial circles
@@ -192,7 +194,7 @@ d3.csv("static/assets/data/NBAData.csv", function(nbaData) {
   .attr("x", d => {return xLinearScale(d.Height)})
   .attr("y", d => {return yLinearScale(d.PPG)})
   .attr("dy", ".35em")
-  .text(d => {return d.name})
+  .text(d => {return d.Name})
   .classed("basketballText", true)
 
   // Create group for two x-axis labels
@@ -217,7 +219,7 @@ d3.csv("static/assets/data/NBAData.csv", function(nbaData) {
   .attr("transform", "rotate(-90)")
 
   var ppgLabel = labelsYGroup.append("text")
-    .attr("y", 60 - margin.left)
+    .attr("y", 450 - margin.left)
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
     .attr("value", "PPG") 
@@ -225,7 +227,7 @@ d3.csv("static/assets/data/NBAData.csv", function(nbaData) {
     .text("PPG");
 
   var apgLabel = labelsYGroup.append("text")
-    .attr("y", 40 - margin.left)
+    .attr("y", 430 - margin.left)
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
     .attr("value", "APG") 
@@ -233,7 +235,7 @@ d3.csv("static/assets/data/NBAData.csv", function(nbaData) {
     .text("APG");
 
   var rpgLabel = labelsYGroup.append("text")
-    .attr("y", 20 - margin.left)
+    .attr("y", 410 - margin.left)
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
     .attr("value", "RPG") 
@@ -241,7 +243,7 @@ d3.csv("static/assets/data/NBAData.csv", function(nbaData) {
     .text("RPG");
 
   var tpgLabel = labelsYGroup.append("text")
-    .attr("y", 0 - margin.left)
+    .attr("y", 390 - margin.left)
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
     .attr("value", "TPG") 

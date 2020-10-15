@@ -6,7 +6,7 @@
   
   .active {
     font-weight: bold;
-    fill: #000;
+    fill: orange;
     transition: fill 0.3s ease-out;
     text-anchor: middle;
   }
@@ -19,7 +19,7 @@
   }
   
   .inactive:hover {
-    fill: #000;
+    fill: orange;
     cursor: pointer;
   }
   
@@ -53,6 +53,18 @@
     border-radius: 4px;
   }
   
+  axisWhite line{
+    stroke: white;
+  }
+  
+  .axisWhite path{
+    stroke: white;
+  }
+  
+  .axisWhite text{
+    fill: white;
+  }
+
   /* Mobile Rules */
   @media screen and (max-width: 530px) {
     .stateText {
