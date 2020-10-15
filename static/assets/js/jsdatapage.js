@@ -15,10 +15,8 @@ function runForm(){
     //prevent page from reloading
     d3.event.preventDefault();
 
-    // Select the input element and get the raw HTML node
-    //var inputElement = d3.select("#datetime");
 
-    //Select the other input
+    //Select input
     var inputAwesome = d3.select("#playerchosen")
     var awesomeValue = inputAwesome.property("value")
     var player_title = d3.select("#selectedplayername")
@@ -27,8 +25,6 @@ function runForm(){
     console.log(awesomeValue)
     d3.csv("static/assets/data/NBA_Data.csv", function(nba_data){
         d3.csv("static/assets/data/NCAA_Data.csv", function(ncaa_data){
-            //console.log(nba_data[0])
-            //console.log(ncaa_data[0])
             var filteredNBA = nba_data.filter(playername => playername.Name == awesomeValue)[0];
             var filteredNCAA = ncaa_data.filter(playername => playername.Name == awesomeValue)[0];
 
@@ -104,4 +100,3 @@ function runForm(){
     })        
 }
 
-//<select id="player_dropdown" name="player_dropdown"></select>
