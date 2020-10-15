@@ -118,7 +118,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, circleLabels) {
     .offset([80, -60])
     .attr("class", "d3-tip")
     .html(function(d) {
-      return (`${d.name}<br>${labelx} ${d[chosenXAxis]}<br> ${labely} ${d[chosenYAxis]}`);
+      return (`${d.Name}<br>${labelx} ${d[chosenXAxis]}<br> ${labely} ${d[chosenYAxis]}`);
     });
 
   circlesGroup.call(toolTip);
@@ -192,7 +192,7 @@ d3.csv("static/assets/data/NBAData.csv", function(nbaData) {
   .attr("x", d => {return xLinearScale(d.Height)})
   .attr("y", d => {return yLinearScale(d.PPG)})
   .attr("dy", ".35em")
-  .text(d => {return d.name})
+  .text(d => {return d.Name})
   .classed("basketballText", true)
 
   // Create group for two x-axis labels
