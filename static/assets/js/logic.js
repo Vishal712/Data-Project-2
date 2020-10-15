@@ -1,12 +1,10 @@
-// Creating our initial map object
-// We set the longitude, latitude, and the starting zoom level
-// This gets inserted into the div with an id of 'map'
+// Creating map object
 var myMap = L.map("map", {
-  center: [37.09, -95.71],
-  zoom: 5
+  center: [40.7, -73.95],
+  zoom: 11
 });
-// Adding a tile layer (the background map image) to our map
-// We use the addTo method to add objects to our map
+
+// Adding tile layer to the map
 L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
   attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
   tileSize: 512,
@@ -15,15 +13,39 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   id: "mapbox/streets-v11",
   accessToken: API_KEY
 }).addTo(myMap);
-d3.csv("assets/data/College_Location.csv", function(data){
+
+// Store API query variables
+var baseURL = "https://data.cityofnewyork.us/resource/fhrw-4uyv.json?";
+var date = "$where=created_date between'2016-01-01T00:00:00' and '2017-01-01T00:00:00'";
+var complaint = "&complaint_type=Rodent";
+var limit = "&$limit=10000";
+
+// Assemble API query URL
+var url = baseURL + date + complaint + limit;
+
+// Grab the data with d3
+d3.json(url, function(response) {
+
+  // Create a new marker cluster group
   var markers = L.markerClusterGroup();
-  for (i = 0; i < data.length; i++) {
-    var location = [data[i].lat, data[i].lng]
-    console.log(data)
+
+  // Loop through data
+  for (var i = 0; i < response.length; i++) {
+
+    // Set the data location property to a variable
+    var location = response[i].location;
+
+    // Check for location property
     if (location) {
-      markers.addLayer(L.marker([location[0], location[1]])
-        .bindPopup(data[i].player));
+
+      // Add a new marker to the cluster group and bind a pop-up
+      markers.addLayer(L.marker([location.coordinates[1], location.coordinates[0]])
+        .bindPopup(response[i].descriptor));
     }
+
   }
-myMap.addLayer(markers)
-})
+
+  // Add our marker cluster layer to the map
+  myMap.addLayer(markers);
+
+});
