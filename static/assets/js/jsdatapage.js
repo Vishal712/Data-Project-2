@@ -25,6 +25,83 @@ function runForm(){
     player_title.text(awesomeValue)
 
     console.log(awesomeValue)
+    d3.csv("static/assets/data/NBA_Data.csv", function(nba_data){
+        d3.csv("static/assets/data/NCAA_Data.csv", function(ncaa_data){
+            //console.log(nba_data[0])
+            //console.log(ncaa_data[0])
+            var filteredNBA = nba_data.filter(playername => playername.Name == awesomeValue)[0];
+            var filteredNCAA = ncaa_data.filter(playername => playername.Name == awesomeValue)[0];
+
+            var collegePPG = d3.select("#CollegePPG").text(filteredNCAA.PPG)
+            var nbaPPG = d3.select("#NBAPPG").text(filteredNBA.PPG)
+            var collegeAPG = d3.select("#CollegeAPG").text(filteredNCAA.APG)
+            var nbaAPG = d3.select("#NBAAPG").text(filteredNBA.APG)
+            var collegeRPG = d3.select("#CollegeRPG").text(filteredNCAA.RPG)
+            var nbaRPG = d3.select("#NBARPG").text(filteredNBA.RPG)
+            var collegeBPG = d3.select("#CollegeBPG").text(filteredNCAA.BPG)
+            var nbaBPG = d3.select("#NBABPG").text(filteredNBA.BPG)
+            var collegeSPG = d3.select("#CollegeSPG").text(filteredNCAA.SPG)
+            var nbaSPG = d3.select("#NBASPG").text(filteredNBA.SPG)
+            var collegeFG = d3.select("#CollegeFG").text((filteredNCAA["Career Field Goal Percentage"]) * 100)
+            var nbaFG = d3.select("#NBAFG").text((filteredNBA["Career Field Goal Percentage"]) * 100)
+            var college3P = d3.select("#College3P").text((filteredNCAA["Career Three Point Percentage"]) * 100)
+            var nba3P = d3.select("#NBA3P").text((filteredNBA["Career Three Point Percentage"]) * 100)
+            
+            var xCategories = ["PPG", "APG", "RPG", "BPG", "SPG"]
+            var percentageCategories = [ "FG%", "3P%"]
+            
+            var collegevalues = [filteredNCAA.PPG, filteredNCAA.APG, filteredNCAA.RPG, filteredNCAA.BPG, filteredNCAA.SPG] 
+            var collegepercentages = [filteredNCAA["Career Field Goal Percentage"]*100, filteredNCAA["Career Three Point Percentage"] * 100]
+            var nbavalues = [filteredNBA.PPG, filteredNBA.APG, filteredNBA.RPG, filteredNBA.BPG, filteredNBA.SPG] 
+            var nbapercentages = [filteredNBA["Career Field Goal Percentage"]*100, filteredNBA["Career Three Point Percentage"] * 100]
+
+            var trace1 = {
+                x: xCategories,
+                y: collegevalues,
+                name: 'College',
+                type: 'bar',
+                marker: {
+                    color: 'rgb(8,48,107)'
+                }
+            };
+            var trace2 = {
+                x: xCategories,
+                y: nbavalues,
+                name: 'NBA',
+                type: 'bar',
+                marker: {
+                    color: 'rgb(141, 130, 196)'
+                }
+            }
+            var data = [trace1, trace2]
+            var layout = {title: 'Per Game Statistics', barmode: 'group'}
+            Plotly.newPlot('bar-plot', data, layout)
+
+            //percentage plotted
+            var trace3 = {
+                x: percentageCategories,
+                y: collegepercentages,
+                name: 'College',
+                type: 'bar',
+                marker: {
+                    color: 'rgb(8,48,107)'
+                }
+            }
+            var trace4 = {
+                x: percentageCategories,
+                y: nbapercentages,
+                name: 'NBA',
+                type: 'bar',
+                marker: {
+                    color: 'rgb(141, 130, 196)'
+                }
+            }
+            var pdata = [trace3, trace4]
+            var playout = {title: 'Percentages', barmode: 'group'}
+            Plotly.newPlot('percentages-plot', pdata, playout)
+
+        })
+    })        
 }
 
 //<select id="player_dropdown" name="player_dropdown"></select>
