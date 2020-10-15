@@ -17,7 +17,7 @@ L.tileLayer("https://api.mapbox.com/styles/v1/hyrum78/ckg9tsvf803p519pet1f9cbmk/
 }).addTo(myMap);
 
 
-d3.csv("../static/assets/data/NBA_Location.csv", function(data) {
+d3.csv("../static/assets/data/NBALocation.csv", function(data) {
 
   // Create a new marker cluster group
   var markers = L.markerClusterGroup();
@@ -34,7 +34,7 @@ d3.csv("../static/assets/data/NBA_Location.csv", function(data) {
 
       // Add a new marker to the cluster group and bind a pop-up
       markers.addLayer(L.marker([location[0], location[1]])
-        .bindPopup(data[i].name));
+        .bindPopup(data[i].Name));
     }
 
   }
