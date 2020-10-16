@@ -19,19 +19,15 @@ L.tileLayer("https://api.mapbox.com/styles/v1/hyrum78/ckg9tsvf803p519pet1f9cbmk/
 
 d3.csv("../static/assets/data/NBALocation.csv", function(data) {
 
-  var heatArray = [];
-
-  for (var i = 0; i < data.length; i++) {
-    var location = [data[i].lat, data[i].lng];
-
+  var markers = L.markerClusterGroup();
+  for (i = 0; i < data.length; i++) {
+    var location = [data[i].lat, data[i].lng]
+    console.log(data)
+    
     if (location) {
-      heatArray.push([location[0], location[1]]);
+      markers.addLayer(L.marker([location[0], location[1]])
+        .bindPopup(data[i].school));
     }
   }
-
-  var heat = L.heatLayer(heatArray, {
-    radius: 20,
-    blur: 35
-  }).addTo(myMap);
-
+myMap.addLayer(markers)
 });
