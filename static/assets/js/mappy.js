@@ -19,27 +19,19 @@ L.tileLayer("https://api.mapbox.com/styles/v1/hyrum78/ckg9tsvf803p519pet1f9cbmk/
 
 d3.csv("../static/assets/data/NBALocation.csv", function(data) {
 
-  // Create a new marker cluster group
-  var markers = L.markerClusterGroup();
+  var heatArray = [];
 
-  // Loop through data
   for (var i = 0; i < data.length; i++) {
-
-    // Set the data location property to a variable
     var location = [data[i].lat, data[i].lng];
-    console.log(data)
 
-    // Check for location property
     if (location) {
-
-      // Add a new marker to the cluster group and bind a pop-up
-      markers.addLayer(L.marker([location[0], location[1]])
-        .bindPopup(data[i].Name));
+      heatArray.push([location[0], location[1]]);
     }
-
   }
 
-  // Add our marker cluster layer to the map
-  myMap.addLayer(markers);
+  var heat = L.heatLayer(heatArray, {
+    radius: 20,
+    blur: 35
+  }).addTo(myMap);
 
 });
