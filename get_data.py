@@ -588,8 +588,10 @@ def scrape_info():
 
     import pymongo
 
-    conn = 'mongodb://localhost:27017'
+    conn = 'mongodb+srv://sabu:cp3@cluster0.suglk.mongodb.net/test'
     client = pymongo.MongoClient(conn)
+
+    ncaa_clean = ncaa_clean.replace(np.nan, 0)
 
     # Declare the database
     db = client.NBA_NCAA
@@ -607,6 +609,7 @@ def scrape_info():
     NBA.insert_many(NBA_dict)
 
     #Convert the NCAAl dataframe into a dictionary and insert into Mongo.
+
     NCAA_dict = ncaa_clean.to_dict('records')
     NCAA.insert_many(NCAA_dict)
 

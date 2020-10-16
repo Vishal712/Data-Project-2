@@ -39,7 +39,7 @@ function xScale(nbaData, chosenXAxis) {
 function yScale(nbaData, chosenYAxis) {
   // Create scales
   var yLinearScale = d3.scaleLinear()
-      .domain([-.4, d3.max(nbaData, d => d[chosenYAxis]) * 1.01])
+      .domain([-.4, d3.max(nbaData, d => d[chosenYAxis]) * 1.05])
       .range([height, 0])
   return yLinearScale
 }
@@ -118,7 +118,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, circleLabels) {
     .offset([80, -60])
     .attr("class", "d3-tip")
     .html(function(d) {
-      return (`${d.Name}<br>${labelx} ${d[chosenXAxis]}<br> ${labely} ${d[chosenYAxis]}`);
+      return (`<a href= "/data/${d.Name}" target="_blank">${d.Name} </a><br/> ${labelx} ${d[chosenXAxis]}<br> ${labely} ${d[chosenYAxis]})`)
     });
 
   circlesGroup.call(toolTip);
@@ -127,16 +127,16 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, circleLabels) {
     toolTip.show(data);
   })
     // onmouseout event
-    .on("mouseout", function(data, index) {
+    .on("dblclick", function(data, index) {
       toolTip.hide(data);
     });
   circleLabels.call(toolTip);
 
-  circleLabels.on("mouseover", function(data) {
+  circleLabels.on("dblclick", function(data) {
     toolTip.show(data);
   })
     // onmouseout event
-    .on("mouseout", function(data, index) {
+    .on("dblclick", function(data, index) {
       toolTip.hide(data);
     });
 
@@ -144,7 +144,7 @@ function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup, circleLabels) {
 }
 
 // Retrieve data from the CSV file and execute everything below
-d3.csv("static/assets/data/NBAData.csv", function(nbaData) {
+d3.json("/NBAData", function(nbaData) {
   
 
   // Parse data

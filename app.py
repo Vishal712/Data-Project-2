@@ -1,9 +1,15 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, jsonify
 import pymongo
 import pandas as pd
 import get_data
 
 app = Flask(__name__)
+
+#Get the Data for NBA
+conn = 'mongodb+srv://sabu:cp3@cluster0.suglk.mongodb.net/test'
+client = pymongo.MongoClient(conn)
+# Declare the database
+db = client.NBA_NCAA
 
 @app.route("/")
 def index():
@@ -13,40 +19,64 @@ def index():
 def data():
     return render_template("datapage.html")
 
+@app.route("/data/<player>")
+def dataplayer(player):
+    return render_template("dataplayerpage.html", playername = player)
+
 @app.route("/profile")
 def profile():
     return render_template("updatedprofile.html")
 
-
-@app.route("/scrape")
-def scrape():
-    conn = 'mongodb://localhost:27017'
-    client = pymongo.MongoClient(conn)
+@app.route("/NBAData")
+def NBAData():
+    #Get the Data for NBA
+    #conn = 'mongodb://localhost:27017'
+    #client = pymongo.MongoClient(conn)
 
     # Declare the database
-    db = client.NBA_NCAA
+    #db = client.NBA_NCAA
 
-    # Get the collection from mongo
     NBA = db.NBA
+    print(NBA.find_one())
+    docs = []
+    for doc in NBA.find():
+        doc.pop('_id') 
+        docs.append(doc)
+    return jsonify(docs)
+
+@app.route("/NCAAData")
+def NCAAData():
+    #Get the Data for NBA
+    #conn = 'mongodb+srv://sabu:cp3@cluster0.suglk.mongodb.net/test'
+    #client = pymongo.MongoClient(conn)
+
+    # Declare the database
+    #db = client.NBA_NCAA
+
     NCAA = db.NCAA
+    print(NCAA.find_one())
+    docs = []
+    for doc in NCAA.find():
+        doc.pop('_id') 
+        docs.append(doc)
+    return jsonify(docs)
+
+@app.route("/NBALocation")
+def NBALocation():
+    #Get the Data for NBA
+    #conn = 'mongodb+srv://sabu:cp3@cluster0.suglk.mongodb.net/test'
+    #client = pymongo.MongoClient(conn)
+
+    # Declare the database
+    #db = client.NBA_NCAA
+
     NBA_Location = db.NBA_Location
+    docs = []
+    for doc in NBA_Location.find():
+        doc.pop('_id') 
+        docs.append(doc)
+    return jsonify(docs)
 
-
-    #get all entries in the collection and add to a list
-    NBA_list = pd.DataFrame(list(NBA.find()))
-    NCAA_list = pd.DataFrame(list(NCAA.find()))
-    NBA_location_list = pd.DataFrame(list(NBA_Location.find()))
-
-    #Convert the lists of dictionaries to pandas df
-    NBA_df_mongo = pd.DataFrame(NBA_list)
-    NCAA_df_mongo = pd.DataFrame(NCAA_list)
-    NBA_location_df_mongo = pd.DataFrame(NBA_location_list)
-
-    NBA_df_mongo.to_csv('static/assets/data/NBAData.csv', index = False)
-    NCAA_df_mongo.to_csv('static/assets/data/NCAAData.csv', index = False)
-    NBA_location_df_mongo.to_csv('static/assets/data/NBALocation.csv', index = False)
-    return redirect("/", code=302)
-    
 
 if __name__ == "__main__":
     app.run(debug=True)
